@@ -1,6 +1,14 @@
 # school-library
 this project is ruby application for school library management.
 
+## Built with
+Ruby
+
+## Getting started
+Clone the repos in your local machine.   
+Run bundle install to get the dependencies.  
+Run irb to start interactive Ruby CLI.  
+
 ## Authors
 
 👤 **Souad**
