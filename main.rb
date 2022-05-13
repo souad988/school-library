@@ -10,7 +10,7 @@ end
 def main
    person1 = Person.new(33,'souad')
    person2 = Person.new(4,'morocco','yassine')
-   p person1,person2.name
+   p person1.name,person2.name
 end
 
 main()
