@@ -1,8 +1,9 @@
 require('./person')
 
 class Teacher < Person
-  def initialize(specialization, age, name = 'Unknown', parent_permission: true)
-    super(name, age, parent_permission)
+  attr_reader :specialization
+  def initialize(specialization, age, name = 'Unknown')
+    super(age, name, parent_permission: true)
     @specialization = specialization
   end
 
@@ -10,7 +11,3 @@ class Teacher < Person
     true
   end
 end
-
-teacher = Teacher.new('math', 'first', 45, false)
-p teacher.name
-p teacher.can_use_services?
