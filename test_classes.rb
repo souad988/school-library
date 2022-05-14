@@ -19,7 +19,7 @@ require './student'
 # p souad.rentals
 # p book1.rentals
 
-b = {tata: "soso", bm: 33}
-#p b.tata
+b = { tata: 'soso', bm: 33 }
+# p b.tata
 p b[:tata]
 p b[tata]
