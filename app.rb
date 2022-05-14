@@ -51,7 +51,6 @@ class App
   end
 
   def list_all_books
-    p 'from list alll books>>>>>>>>'
     if @books.length.zero?
       puts 'empty list! choose the option to add a book from the list'
     else
@@ -85,7 +84,7 @@ class App
     print 'Date:'
     date = gets.chomp
     add_rental(date, book, person)
-    p 'rental added successfully!'
+    puts 'rental added successfully!'
   end
 
   def book_data
@@ -150,7 +149,6 @@ class App
     while option != '7'
       display_options(@options)
       option = gets.chomp
-      p option
       methods[option.to_i].call
     end
     exit
