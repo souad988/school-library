@@ -1,34 +1,21 @@
 module Utils
-  def self.book_data
-    print 'Title:'
-    title = gets.chomp
-    print 'Author:'
-    author = gets.chomp
-    { title: title, author: author }
+  def self.data(attributes)
+    data = {}
+    attributes.each do |item|
+      print "#{item} :"
+      data[item] = gets.chomp
+    end
+    data
   end
 
-  def self.student_data
-    print 'Name:'
-    name = gets.chomp
-    print 'Age'
-    age = gets.chomp
-    print 'parent permission yes\no'
-    parent_permission = gets.chomp
-    { name: name, age: age, parent_permission: parent_permission == 'yes' }
-  end
-
-  def self.teacher_data
-    print 'Name:'
-    name = gets.chomp
-    print 'Age:'
-    age = gets.chomp
-    print 'Specialization:'
-    specialization = gets.chomp
-    { name: name, age: age, specialization: specialization }
-  end
-
-  def self.personid
-    p 'person id:'
-    gets.chomp
+  def self.list_data(object_controler)
+    list_length = object_controler.list
+    if list_length.zero?
+      puts 'Please add new items '
+      return -1
+    end
+    print 'select index from the list :'
+    index = gets.chomp
+    index.to_i
   end
 end
