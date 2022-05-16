@@ -38,7 +38,16 @@ class App
   end
 
   def add_new_rental
-    @rentals_controller.add(@people_controller, @books_controller)
+    book_index = Utils.list_data(@books_controller)
+    return if book_index.negative?
+
+    book = @books_controller.books[book_index - 1]
+    person_index = Utils.list_data(@people_controller)
+    return if person_index.negative?
+
+    person = @people_controller.people[- 1]
+    date = Utils.data(['date'])['date']
+    @rentals_controller.add(date, book, person)
   end
 
   def add_new_book

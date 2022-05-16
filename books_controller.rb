@@ -13,7 +13,7 @@ class BooksController
 
   def list
     if @books.length.zero?
-      puts 'empty list! choose the option to add a book from the list'
+      puts ' Book list is empty! choose the option to add a book from the list'
     else
       @books.each_with_index do |book, index|
         puts "#{index + 1}- Title: #{book.title}, Author: #{book.author}"

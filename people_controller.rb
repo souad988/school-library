@@ -1,6 +1,3 @@
-require_relative './student'
-require_relative './teacher'
-
 class PoepleController
   attr_reader :people
 
@@ -21,10 +18,10 @@ class PoepleController
 
   def list
     if @people.length.zero?
-      puts 'empty list!!'
+      puts 'People list is empty ! chose the option to add a new person'
     else
       @people.each_with_index do |person, index|
-        p "#{index + 1}- [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+        puts "#{index + 1}- [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
       end
     end
     @people.length
