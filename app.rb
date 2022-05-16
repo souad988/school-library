@@ -1,47 +1,26 @@
 require 'pry'
-require './book'
-require './classroom'
-require './person'
-require './rental'
-require './student'
-require './teacher'
-require './utils'
+require_relative './book'
+require_relative './classroom'
+require_relative './person'
+require_relative './rental'
+require_relative './student'
+require_relative './teacher'
+require_relative './utils'
+require_relative './books_controller'
+require_relative './people_controller'
+require_relative './rentals_controller'
 
 class App
   attr_reader :books, :people, :rentals
 
   def initialize()
-    @books = []
-    @people = []
-    @rentals = []
     @options = ['list all books', 'list all people',
                 'Create a person', 'Create a book',
                 'Create a rental', 'List all rentals for a given person id',
                 'Exit']
-  end
-
-  def add_book(title, author)
-    new_book = Book.new(title, author)
-    @books.push(new_book)
-  end
-
-  def add_student(age, name, parent_permission)
-    new_student = Student.new(age, name, parent_permission: parent_permission)
-    @people.push(new_student)
-  end
-
-  def add_teacher(age, name, specialization)
-    new_teacher = Teacher.new(specialization, age, name)
-    @people.push(new_teacher)
-  end
-
-  def add_rental(date, book, person)
-    new_rental = Rental.new(date, book, person)
-    rentals.push(new_rental)
-  end
-
-  def rentals_by_person(person_id)
-    @rentals.select { |rental| rental.person.id == person_id }
+    @books_controller = BooksController.new
+    @people_controller = PoepleController.new
+    @rentals_controller = RentalsController.new
   end
 
   def display_options(arr)
@@ -51,77 +30,33 @@ class App
   end
 
   def list_all_books
-    if @books.length.zero?
-      puts 'empty list! choose the option to add a book from the list'
-    else
-      @books.each_with_index do |book, index|
-        puts "#{index + 1}- Title: #{book.title}, Author: #{book.author}"
-      end
-    end
+    @books_controller.list
   end
 
   def list_all_people
-    if @people.length.zero?
-      puts 'empty list!!'
-    else
-      @people.each_with_index do |person, index|
-        p "#{index + 1}- [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-      end
-    end
+    @people_controller.list
   end
 
   def add_new_rental
-    puts 'chose index of the book from this list'
-    list_all_books
-    print 'Book:'
-    book_index = gets.chomp
-    book = @books[book_index.to_i - 1]
-    puts 'chose index of the person from this list'
-    list_all_people
-    print 'Person:'
-    person_index = gets.chomp
-    person = @people[person_index.to_i - 1]
-    print 'Date:'
-    date = gets.chomp
-    add_rental(date, book, person)
-    puts 'rental added successfully!'
+    @rentals_controller.add(@people_controller, @books_controller)
   end
 
   def add_new_book
-    data = Utils.data(['title','author'])
-    add_book(data['title'], data['author'])
-    puts 'book added successfully!'
+    data = Utils.data(%w[title author])
+    @books_controller.add(data)
   end
-
 
   def add_new_person
     puts '1- add student  2- add teacher '
-    person_option = gets.chomp
-    case person_option
-    when '1'
-      data = Utils.data(['age','name','parent_persmission  [Y/N]'])
-      p data
-      add_student(data['age'], data['name'], data['parent_permission  [Y/N]'])
-      puts 'new student added successfully!'
-    when '2'
-      data = Utils.data(['age','name','specialization'])
-      add_teacher(data['age'], data['name'], data['specialization'])
-      puts 'new teacher added succesfully!'
-    else
-      puts 'enter a valide value from the list!!'
-    end
-  end
-  
-  def display_rentals(rentals)
-    rentals.each do |rental|
-      puts "Date: #{rental.date} Book: #{rental.book.title} by #{rental.person.name} "
-    end
+    option = gets.chomp
+    data = Utils.data(['age', 'name', option == '1' ? 'parent_persmission  [Y/N]' : 'specialization'])
+    @people_controller.add(data)
   end
 
   def list_person_rentals
     list_all_people
     person_id = Utils.data(['person id'])['person id'].to_i
-    display_rentals(rentals_by_person(person_id))
+    @rentals_controller.list_by_person(person_id)
   end
 
   def run()
