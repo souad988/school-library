@@ -87,52 +87,41 @@ class App
     puts 'rental added successfully!'
   end
 
-  def book_data
-    Utils.book_data
-  end
-
   def add_new_book
-    data = book_data
-    add_book(data[:title], data[:author])
+    data = Utils.data(['title','author'])
+    add_book(data['title'], data['author'])
     puts 'book added successfully!'
   end
 
-  def student_data
-    Utils.student_data
-  end
-
-  def teacher_data
-    Utils.teacher_data
-  end
 
   def add_new_person
     puts '1- add student  2- add teacher '
     person_option = gets.chomp
     case person_option
     when '1'
-      data = student_data
-      add_student(data[:age], data[:name], data[:parent_permission])
+      data = Utils.data(['age','name','parent_persmission  [Y/N]'])
+      p data
+      add_student(data['age'], data['name'], data['parent_permission  [Y/N]'])
       puts 'new student added successfully!'
     when '2'
-      data = teacher_data
-      add_teacher(data[:age], data[:name], data[:specialization])
+      data = Utils.data(['age','name','specialization'])
+      add_teacher(data['age'], data['name'], data['specialization'])
       puts 'new teacher added succesfully!'
     else
       puts 'enter a valide value from the list!!'
     end
   end
-
-  def personid
-    Utils.personid
+  
+  def display_rentals(rentals)
+    rentals.each do |rental|
+      puts "Date: #{rental.date} Book: #{rental.book.title} by #{rental.person.name} "
+    end
   end
 
   def list_person_rentals
     list_all_people
-    person_id = personid.to_i
-    rentals = rentals_by_person(person_id)
-    rentals.each do |rental|
-      puts "Date: #{rental.date} Book: #{rental.book.title} by #{rental.person.name} "
-    end
+    person_id = Utils.data(['person id'])['person id'].to_i
+    display_rentals(rentals_by_person(person_id))
   end
 
   def run()
