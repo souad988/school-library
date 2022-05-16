@@ -1,11 +1,10 @@
 module Utils
-
-  def self.data (attributes)
+  def self.data(attributes)
     data = {}
-    attributes.each{|item| 
-               print "#{item} :"
-               data[item] = gets.chomp 
-    }
+    attributes.each do |item|
+      print "#{item} :"
+      data[item] = gets.chomp
+    end
     data
   end
 end
