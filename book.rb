@@ -8,4 +8,15 @@ class Book
     @rentals = []
   end
 
+  def self.from_json(json)
+    Book.new(json['title'], json['author'])
+  end
+
+  def self.to_json
+    obj = {
+      'title' => @title,
+      'author' => @author
+    }
+    JSON.generate(obj)
+  end
 end
