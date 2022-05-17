@@ -8,13 +8,10 @@ module Query
     file = File.open(create_path(file_name))
     content = file.read
     file.close
-    p content
     content == '' ? [] : JSON.parse(content)
   end
 
   def self.write(file_name, data)
-    file = File.write(create_path(file_name), data)
+    File.write(create_path(file_name), data)
   end
 end
-
-p JSON.generate({ title: 'ttttt', author: 'authorrrr' })

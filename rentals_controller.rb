@@ -9,7 +9,9 @@ class RentalsController
   end
 
   def list_by_person(person_id)
-    rentals =	@rentals.select { |rental| rental.person.id == person_id }
+    rentals =	@rentals.select do |rental|
+      rental.person.id.to_s == person_id.to_s
+    end
     list(rentals)
   end
 
@@ -21,10 +23,7 @@ class RentalsController
   end
 
   def save
-    serialized_data = @rentals.map do |rental|
-      rental.to_json
-      p rental.to_json
-    end
+    serialized_data = @rentals.map(&:to_json)
     JSON.generate(serialized_data)
   end
 end

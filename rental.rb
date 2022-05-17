@@ -12,7 +12,7 @@ class Rental
 
   def self.from_json(json)
     json = JSON.parse(json)
-    person = if json['person'].key?('specialization')
+    person = if json.key?('specialization')
                Teacher.from_json(json['person'])
              else
                Student.from_json(json['person'])
@@ -21,11 +21,10 @@ class Rental
   end
 
   def to_json(*_args)
-    obj = {
-      'date' => @date,
-      'book' => @book.to_json,
-      'person' => @person.to_json
-    }
-    JSON.generate(obj)
+    JSON.generate({
+                    date: @date,
+                    book: @book.to_json,
+                    person: @person.to_json
+                  })
   end
 end

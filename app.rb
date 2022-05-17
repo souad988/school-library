@@ -65,7 +65,7 @@ class App
 
   def list_person_rentals
     list_all_people
-    person_id = Utils.data(['person id'])['person id'].to_i
+    person_id = Utils.data(['person id'])['person id']
     @rentals_controller.list_by_person(person_id)
   end
 
@@ -73,7 +73,6 @@ class App
     book_data = @books_controller.save
     person_data = @people_controller.save
     rental_data = @rentals_controller.save
-    # p "returned from controloler:: #{book_data} #{person_data} #{rental_data} "
     Query.write('books', book_data)
     Query.write('people', person_data)
     Query.write('rentals', rental_data)

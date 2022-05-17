@@ -10,7 +10,6 @@ class Book
 
   def self.from_json(json)
     json = JSON.parse(json)
-    p json
     Book.new(json['title'], json['author'])
   end
 
