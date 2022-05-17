@@ -1,8 +1,8 @@
 class BooksController
   attr_reader :books
 
-  def initialize
-    @books = []
+  def initialize()
+    @books = Query.read('books').map { |json| Book.from_json(json) }
   end
 
   def add(book)
@@ -20,5 +20,10 @@ class BooksController
       end
     end
     @books.length
+  end
+
+  def save
+    serialized_data = @books.map(&:to_json)
+    JSON.generate(serialized_data)
   end
 end

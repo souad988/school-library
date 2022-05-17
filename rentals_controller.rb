@@ -1,6 +1,6 @@
 class RentalsController
   def initialize
-    @rentals = []
+    @rentals = Query.read('rentals').map { |json| Rental.from_json(json) }
   end
 
   def add(date, book, person)
@@ -9,7 +9,9 @@ class RentalsController
   end
 
   def list_by_person(person_id)
-    rentals =	@rentals.select { |rental| rental.person.id == person_id }
+    rentals =	@rentals.select do |rental|
+      rental.person.id.to_s == person_id.to_s
+    end
     list(rentals)
   end
 
@@ -18,5 +20,10 @@ class RentalsController
     rentals.each do |rental|
       puts "Date: #{rental.date} Book: #{rental.book.title} by #{rental.person.name} "
     end
+  end
+
+  def save
+    serialized_data = @rentals.map(&:to_json)
+    JSON.generate(serialized_data)
   end
 end

@@ -9,4 +9,22 @@ class Rental
     @person = person
     person.rentals.push(self) unless person.rentals.include?(self)
   end
+
+  def self.from_json(json)
+    json = JSON.parse(json)
+    person = if json.key?('specialization')
+               Teacher.from_json(json['person'])
+             else
+               Student.from_json(json['person'])
+             end
+    Rental.new(json['date'], Book.from_json(json['book']), person)
+  end
+
+  def to_json(*_args)
+    JSON.generate({
+                    date: @date,
+                    book: @book.to_json,
+                    person: @person.to_json
+                  })
+  end
 end
