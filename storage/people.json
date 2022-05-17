@@ -1,0 +1,22 @@
+[{
+		"age": 52,
+		"name": "BAS",
+		"parent_permission": true
+	},
+	{
+		"age": 566,
+		"name": "BS",
+		"parent_permission": true
+	},
+	{
+		"age": 552,
+		"name": "AS",
+		"parent_permission": true
+	},
+	{
+		"age": 552,
+		"name": "AS",
+		"parent_permission": true,
+		"specialization": "maths"
+	}
+]
