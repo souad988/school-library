@@ -1,8 +1,9 @@
+require './query'
 class BooksController
   attr_reader :books
 
-  def initialize
-    @books = []
+  def initialize()
+    @books = Query.read('books')
   end
 
   def add(book)

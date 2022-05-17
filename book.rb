@@ -7,4 +7,5 @@ class Book
     @author = author
     @rentals = []
   end
+
 end
