@@ -1,6 +1,6 @@
 class RentalsController
   def initialize
-    @rentals = []
+    @rentals = Query.read('rentals').map { |json| Rental.from_json(json) }
   end
 
   def add(date, book, person)

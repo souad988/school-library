@@ -1,9 +1,8 @@
-require './query'
 class BooksController
   attr_reader :books
 
   def initialize()
-    @books = Query.read('books')
+    @books = Query.read('books').map { |json| Book.from_json(json) }
   end
 
   def add(book)

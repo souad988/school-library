@@ -2,7 +2,13 @@ class PoepleController
   attr_reader :people
 
   def initialize
-    @people = []
+    @people = Query.read('people').map do |json|
+      if json.key?('specialization')
+        Teacher.from_json(json)
+      else
+        Student.from_json(json)
+      end
+    end
   end
 
   def add(person)

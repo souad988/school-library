@@ -9,6 +9,7 @@ require_relative './utils'
 require_relative './books_controller'
 require_relative './people_controller'
 require_relative './rentals_controller'
+require_relative './query'
 
 class App
   attr_reader :books, :people, :rentals
