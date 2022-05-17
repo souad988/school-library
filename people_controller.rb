@@ -13,7 +13,7 @@ class PoepleController
 
   def add(person)
     person = if person.key?('specialization')
-               Teacher.new(person['age'], person['name'], person['specialization'])
+               Teacher.new(person['specialization'], person['age'], person['name'])
              else
                Student.new(person['age'], person['name'],
                            parent_permission: person['parent_persmission  [Y/N]'].upcase == 'Y')
@@ -31,5 +31,13 @@ class PoepleController
       end
     end
     @people.length
+  end
+
+  def save
+    serialized_data = @people.map do |person|
+      person.to_json
+      p person.to_json
+    end
+    JSON.generate(serialized_data)
   end
 end

@@ -3,8 +3,8 @@ require('./person')
 class Teacher < Person
   attr_reader :specialization
 
-  def initialize(id, specialization, age, name = 'Unknown')
-    super(age, name, id, parent_permission: true)
+  def initialize( specialization, age, name = 'Unknown', id = Random.rand(1..1000))
+    super(age, name, parent_permission: true, id)
     @specialization = specialization
   end
 
@@ -13,10 +13,11 @@ class Teacher < Person
   end
 
   def self.from_json(json)
-    Teacher.new(json['id'], json['specialization'], json['age'], json['name'])
+    json = JSON.parse(json)
+    Teacher.new(json['specialization'], json['age'], json['name'], json['id'])
   end
 
-  def self.to_json
+  def to_json
     obj = {
       'id' => @id,
       'age' => @age,

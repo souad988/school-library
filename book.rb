@@ -9,14 +9,12 @@ class Book
   end
 
   def self.from_json(json)
+    json = JSON.parse(json)
+    p json
     Book.new(json['title'], json['author'])
   end
 
-  def self.to_json
-    obj = {
-      'title' => @title,
-      'author' => @author
-    }
-    JSON.generate(obj)
+  def to_json(*_args)
+    JSON.generate({ title: @title, author: @author })
   end
 end

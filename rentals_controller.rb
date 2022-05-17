@@ -19,4 +19,12 @@ class RentalsController
       puts "Date: #{rental.date} Book: #{rental.book.title} by #{rental.person.name} "
     end
   end
+
+  def save
+    serialized_data = @rentals.map do |rental|
+      rental.to_json
+      p rental.to_json
+    end
+    JSON.generate(serialized_data)
+  end
 end

@@ -11,6 +11,7 @@ class Rental
   end
 
   def self.from_json(json)
+    json = JSON.parse(json)
     person = if json['person'].key?('specialization')
                Teacher.from_json(json['person'])
              else
@@ -19,7 +20,7 @@ class Rental
     Rental.new(json['date'], Book.from_json(json['book']), person)
   end
 
-  def self.to_json
+  def to_json(*_args)
     obj = {
       'date' => @date,
       'book' => @book.to_json,

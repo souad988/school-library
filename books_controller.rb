@@ -21,4 +21,12 @@ class BooksController
     end
     @books.length
   end
+
+  def save
+    serialized_data = @books.map do |book|
+      book.to_json
+      p book.to_json
+    end
+    JSON.generate(serialized_data)
+  end
 end

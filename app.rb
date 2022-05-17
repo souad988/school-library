@@ -69,6 +69,17 @@ class App
     @rentals_controller.list_by_person(person_id)
   end
 
+  def exit_app
+    book_data = @books_controller.save
+    person_data = @people_controller.save
+    rental_data = @rentals_controller.save
+    # p "returned from controloler:: #{book_data} #{person_data} #{rental_data} "
+    Query.write('books', book_data)
+    Query.write('people', person_data)
+    Query.write('rentals', rental_data)
+    exit
+  end
+
   def run()
     methods = {}
     methods[1] = method(:list_all_books)
@@ -77,7 +88,7 @@ class App
     methods[4] = method(:add_new_book)
     methods[5] = method(:add_new_rental)
     methods[6] = method(:list_person_rentals)
-    methods[7] = method(:exit)
+    methods[7] = method(:exit_app)
 
     option = ''
     while option != '7'
@@ -85,6 +96,6 @@ class App
       option = gets.chomp
       methods[option.to_i].call
     end
-    exit
+    exit_app
   end
 end

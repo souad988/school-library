@@ -2,8 +2,8 @@ require('./person')
 class Student < Person
   attr_reader :classroom
 
-  def initialize(id, age, name = 'Unknown', parent_permission: true)
-    super(age, name, id, parent_permission: parent_permission)
+  def initialize(age, name = 'Unknown', parent_permission: true, id = Random.rand(1..1000))
+    super(age, name, parent_permission: parent_permission, id)
     @classroom = nil
   end
 
@@ -18,10 +18,11 @@ class Student < Person
   end
 
   def self.from_json(json)
-    Student.new(json['id'], json['age'], json['name'], parent_permission: json['parent_permission'])
+    json = JSON.parse(json)
+    Student.new(json['age'], json['name'], parent_permission: json['parent_permission'], json['id'])
   end
 
-  def self.to_json
+  def to_json
     obj = {
       'id' => @id,
       'age' => @age,

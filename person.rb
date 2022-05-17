@@ -2,7 +2,7 @@ require('./nameable')
 class Person < Nameable
   attr_reader :rentals, :id
 
-  def initialize(age, name = 'Unknown', id = Random.rand(1..1000), parent_permission: true)
+  def initialize(age, name = 'Unknown', parent_permission: true, id = Random.rand(1..1000))
     super()
     @id = id
     @name = name
