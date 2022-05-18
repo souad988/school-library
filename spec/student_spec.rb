@@ -29,18 +29,16 @@ describe Student do
   end
 
   it 'generates json object for student' do
-     expect(@student.to_json).to eql @generated_json
+    expect(@student.to_json).to eql @generated_json
   end
-  
-  
-  it 'adds classroom to student classroom' do 
-    @student.classroom=(@stub_classroom)
-    expect(@student.classroom).to equal @stub_classroom 
+
+  it 'adds classroom to student classroom' do
+    @student.classroom = (@stub_classroom)
+    expect(@student.classroom).to equal @stub_classroom
   end
-    
+
   it 'adds student to classroom students ' do
-        @student.classroom=(@stub_classroom)
-        expect(@stub_classroom.students).to_not eql []
+    @student.classroom = (@stub_classroom)
+    expect(@stub_classroom.students).to_not eql []
   end
-   
 end

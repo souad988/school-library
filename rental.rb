@@ -11,7 +11,7 @@ class Rental
   end
 
   def self.from_json(json)
-    json = JSON.parse(json)
+    json = JSON.parse(json) if json.is_a? String
     person = if json.key?('specialization')
                Teacher.from_json(json['person'])
              else

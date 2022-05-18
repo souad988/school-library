@@ -16,7 +16,7 @@ describe Person do
   it 'person id shoud not be nil' do
     expect(@person.id).to_not be nil
   end
-   
+
   it 'person can_use_service to return true' do
     expect(@person.can_use_services?).to eql false
   end

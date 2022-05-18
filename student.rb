@@ -8,7 +8,7 @@ class Student < Person
   end
 
   def classroom=(classr)
-    @classroom.delete(self) if (@classroom != nil)
+    @classroom&.delete(self)
     @classroom = classr
     classr.students = (self) unless classr.students.include?(self)
   end
